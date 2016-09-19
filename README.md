@@ -37,3 +37,4 @@ Until a user has confirmed a booking request, that space can still be booked for
 + https://github.com/airbnb
 + https://docs.mongodb.com/master/tutorial/install-mongodb-on-os-x/?_ga=1.74321493.614893363.1474293799
 + https://blog.codecentric.de/files/2012/12/MongoDB-CheatSheet-v1_0.pdf
++ https://trello.com/b/emXzP3WG/day-1
