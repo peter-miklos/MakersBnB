@@ -30,7 +30,9 @@ Until a user has confirmed a booking request, that space can still be booked for
 ## To-dos: 
 + Pick DB technology (research needed)
 + Work out how to use GitHub for group projects 
-+ 
++ Express play-around (as a technology alternative to Sinatra)
 
 ## Additional resources: 
 + https://docs.google.com/presentation/d/1GGKBFHbSLH9gLH8xrRTDlltKqi0DB_6wjM2n1UGC6NU/edit?usp=sharing
++ https://github.com/airbnb
++ 
