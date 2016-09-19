@@ -17,6 +17,7 @@
 + Heroku
 + HTML
 + JavaScript, jQuery (probably)
++ Mocha & Zombie for testing?
 + Bootstrap (nice to have )
 
 ## Project timelines: 
