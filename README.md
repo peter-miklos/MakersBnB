@@ -1,5 +1,14 @@
 # MakersBnB
 
+## How to use this repo:
++ Fork it
++ Clone it to your device
++ cd into the `Makers BnB`
++ `npm install` will install all the required dependencies 
++ edit, commit and save
++ push to your repo
++ create a merge request
+
 ## Headline specifications:
 
 + Any signed-up user can list a new space.
