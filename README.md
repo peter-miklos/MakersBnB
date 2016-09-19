@@ -17,7 +17,6 @@
 + Heroku
 + HTML
 + JavaScript, jQuery (probably)
-+ 
 + Bootstrap (nice to have )
 
 ## Project timelines: 
