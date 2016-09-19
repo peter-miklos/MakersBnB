@@ -17,7 +17,7 @@ Until a user has confirmed a booking request, that space can still be booked for
 + Heroku
 + HTML
 + JavaScript, jQuery (probably)
-+ 
++ Zombie/Jasmine/Mocha for testing
 + Bootstrap (nice to have )
 
 ## Project timelines: 
