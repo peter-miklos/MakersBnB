@@ -1,0 +1,27 @@
+{
+  "name": "makersbnb",
+  "version": "0.0.1",
+  "description": "Makers B&B project",
+  "main": "index.js",
+  "dependencies": {
+    "chai": "^3.5.0",
+    "express": "^4.14.0",
+    "mocha": "^3.0.2",
+    "mongodb": "^2.2.10",
+    "request": "^2.75.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "./node_modules/.bin/mocha --reporter spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johnnydee8/MakersBnB.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/johnnydee8/MakersBnB/issues"
+  },
+  "homepage": "https://github.com/johnnydee8/MakersBnB#readme"
+}
