@@ -3,9 +3,9 @@
 ## Headline specifications:
 
 + Any signed-up user can list a new space.
-Users can list multiple spaces.
-Users should be able to name their space, provide a short description of the space, and a price per night.
-Users should be able to offer a range of dates where their space is available.
++ Users can list multiple spaces.
++ Users should be able to name their space, provide a short description of the space, and a price per night.
++ Users should be able to offer a range of dates where their space is available.
 Any signed-up user can request to hire any space for one night, and this should be approved by the user that owns that space.
 Nights for which a space has already been booked should not be available for users to book that space.
 Until a user has confirmed a booking request, that space can still be booked for that night.
@@ -13,7 +13,7 @@ Until a user has confirmed a booking request, that space can still be booked for
 ## Required technologies:
 
 + BCrypt, 
-+ DB sql, either Ruby-based (Active Record/DataMapper etc.)/JavaScript-based (node.js)/express `DECISION POINT`
++ node.js/Express/MongoDB/Mongoose ODM
 + Heroku
 + HTML
 + JavaScript, jQuery (probably)
@@ -35,4 +35,5 @@ Until a user has confirmed a booking request, that space can still be booked for
 ## Additional resources: 
 + https://docs.google.com/presentation/d/1GGKBFHbSLH9gLH8xrRTDlltKqi0DB_6wjM2n1UGC6NU/edit?usp=sharing
 + https://github.com/airbnb
-+ 
++ https://docs.mongodb.com/master/tutorial/install-mongodb-on-os-x/?_ga=1.74321493.614893363.1474293799
++ https://blog.codecentric.de/files/2012/12/MongoDB-CheatSheet-v1_0.pdf
