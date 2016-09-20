@@ -1,6 +1,9 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
+var db = require('./models/db.js')
+var dupa = require('./models/listing.js')
+
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({
@@ -17,12 +20,18 @@ app.get("/listings/new", function (req, res) {
 });
 
 app.post("/listings", function (req, res) {
-  var name = req.body.name,
-      description = req.body.description,
-      price = req.body.price,
-      available_from = req.body.available_from,
-      available_to = req.body.available_to;
-  console.log(name);
+
+  var listing = new Listing({  name: req.body.name,
+                            description: req.body.description,
+                            price: req.body.price,
+                            availableFrom: req.body.available_from,
+                            availableTo: req.body.available_to });
+
+  listing.save(function (err, test) {
+    if (err) return console.error(err);
+    console.log('uListing saved to DB') });
+
+
   res.redirect("/");
 });
 
