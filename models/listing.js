@@ -8,6 +8,6 @@ var listingSchema = mongoose.Schema({
   availableTo: Date,
 });
 
-var Listing = mongoose.model('Listing', listingSchema);
+mongoose.model('Listing', listingSchema);
 
 console.log('This file (listing.js) is loaded too!')

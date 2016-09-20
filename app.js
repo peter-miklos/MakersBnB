@@ -1,9 +1,9 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
-var db = require('./models/db.js')
-var dupa = require('./models/listing.js')
-
+var db = require('./models/db')
+var listing = require('./models/listing')
+var mongoose = require('mongoose');
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({
@@ -20,18 +20,18 @@ app.get("/listings/new", function (req, res) {
 });
 
 app.post("/listings", function (req, res) {
-
-  var listing = new Listing({  name: req.body.name,
+  mongoose.model('Listing').create({name: req.body.name,
                             description: req.body.description,
                             price: req.body.price,
                             availableFrom: req.body.available_from,
-                            availableTo: req.body.available_to });
-
-  listing.save(function (err, test) {
-    if (err) return console.error(err);
-    console.log('uListing saved to DB') });
-
-
+                            availableTo: req.body.available_to}),
+        function (err, listing) {
+          if (err) {
+            res.send("There was a problem adding the information to the database.");
+          } else {
+            console.log('New listing has been created');
+          }
+        };
   res.redirect("/");
 });
 
