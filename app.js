@@ -1,9 +1,12 @@
+process.env.NODE_ENV ? process.env.NODE_ENV : process.env.NODE_ENV = 'development';
+
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
 var db = require('./models/db')
 var listing = require('./models/listing')
 var mongoose = require('mongoose');
+var Listing = mongoose.model('Listing');
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({
@@ -20,7 +23,7 @@ app.get("/listings/new", function (req, res) {
 });
 
 app.post("/listings", function (req, res) {
-  mongoose.model('Listing').create({name: req.body.name,
+  Listing.create({name: req.body.name,
                             description: req.body.description,
                             price: req.body.price,
                             availableFrom: req.body.available_from,
@@ -32,8 +35,18 @@ app.post("/listings", function (req, res) {
             console.log('New listing has been created');
           }
         };
-  res.redirect("/");
+  res.redirect("/listings");
 });
+
+app.get("/listings", function(req, res) {
+  var listingMap = {};
+  Listing.find({}, function(err, listings) {
+    listingMap = listings;
+ });
+  setTimeout(function() {
+    res.render("listings/index", { listingMap });
+  }, 500);
+})
 
 app.listen(3000, function () {
   console.log('Makers B&B app listening on port 3000!');
