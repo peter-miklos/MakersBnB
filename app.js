@@ -7,6 +7,9 @@ var db = require('./config/db')
 var listing = require('./app/models/listing')
 var mongoose = require('mongoose');
 var Listing = mongoose.model('Listing');
+// var url = require('url');
+// var url_parts = url.parse(request.url, true);
+// var query = url_parts.query;
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({
@@ -45,6 +48,18 @@ app.get("/listings", function(req, res) {
  });
   setTimeout(function() {
     res.render("listings/index", { listingMap });
+  }, 500);
+})
+
+app.get("/bookings/new", function(req, res) {
+  require('url').parse("/booking/new", true);
+  var listing = {};
+  Listing.findById(req.query.id, function(err, item) {
+    listing = item;
+  })
+
+  setTimeout(function() {
+    res.render("bookings/new", { listing })
   }, 500);
 })
 
