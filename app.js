@@ -3,13 +3,17 @@ process.env.NODE_ENV ? process.env.NODE_ENV : process.env.NODE_ENV = 'developmen
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
-var db = require('./config/db')
-var listing = require('./app/models/listing')
+var db = require('./config/db');
+var listing = require('./app/models/listing');
 var mongoose = require('mongoose');
 var Listing = mongoose.model('Listing');
-// var url = require('url');
-// var url_parts = url.parse(request.url, true);
-// var query = url_parts.query;
+var booking = require('./app/models/booking');
+var Booking = mongoose.model('Booking');
+//var cookieSession = require('cookie-session');
+//var cookieParser = require('cookie-parser');
+
+//app.use(express.cookieParser());
+//app.use(express.session({secret: '1234567890QWERTY'}));
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({
@@ -56,12 +60,31 @@ app.get("/bookings/new", function(req, res) {
   var listing = {};
   Listing.findById(req.query.id, function(err, item) {
     listing = item;
+    //req.session.list = item;
   })
+
+  //console.log(req.session.list)
 
   setTimeout(function() {
     res.render("bookings/new", { listing })
   }, 500);
 })
+
+app.post("/bookings/new", function(req, res) {
+  console.log(req.session);
+  Booking.create({bookedFrom: 2016-01-01,
+                            bookedTo: 2016-01-02,
+                            confirmed: false,
+                            totalPrice: 100,
+                            }),
+        function (err, listing) {
+          if (err) {
+            res.send("There was a problem adding the information to the database.");
+          } else {
+            console.log('New booking has been created');
+          }
+        };
+});
 
 app.listen(3000, function () {
   console.log('Makers B&B app listening on port 3000!');

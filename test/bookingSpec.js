@@ -10,21 +10,28 @@ describe('User visits add booking page', function() {
   var app = require("../app.js");
 
   before(function(done) {
-    browser.visit('/listings', done);
+    browser.visit('/listings/new').then(function(){
+    browser
+        .fill('name',    'Makers Flat')
+        .fill('description', 'Lorem Ipsum is simply dummy text of the printing versions of Lorem Ipsum.')
+        .fill('price', '60')
+        .fill('available_from', '2016-01-01')
+        .fill('available_to', '2016-12-31')
+        .pressButton('List my space!', done);
+    });
+  });
 
     mongoose.model('Booking').remove({}, function(err) {
       console.log('collection removed')
     });
 
-  });
-
   describe('submits booking', function() {
 
     before(function(done) {
       browser
-        .clickLink('my apartment 1')
-        .fill('book_from', '2017-01-01')
-        .fill('book_to', '2017-01-04')
+        .clickLink('Makers Flat', function() {})
+        //.fill('book_from', '2017-01-01')
+        //.fill('book_to', '2017-01-04')
         .pressButton('Request to book', done);
     });
 
@@ -33,7 +40,7 @@ describe('User visits add booking page', function() {
     });
 
     it('shows the booked item', function() {
-      browser.assert.text("table", /TBD: name of the listing/);
+      browser.assert.text("table", /Makers Flat/);
     });
 
     it('should see my request page', function() {
