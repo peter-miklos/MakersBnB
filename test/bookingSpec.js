@@ -29,13 +29,12 @@ describe('User visits add booking page', function() {
 
     before(function(done) {
       browser
-        .clickLink('Makers Flat', function(){});
-      setTimeout(function() {
-        browser
-          .fill('book_from', '2016-12-01')
-          .fill('book_to', '2016-12-10')
-          .pressButton('Request to book', done)
-      }, 500);
+        .clickLink('Makers Flat', function(){
+          browser
+            .fill('book_from', '2016-12-01')
+            .fill('book_to', '2016-12-10')
+            .pressButton('Request to book', done)
+        });
     });
 
     it('should be successful', function() {

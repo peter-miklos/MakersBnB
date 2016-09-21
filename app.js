@@ -41,34 +41,22 @@ app.post("/listings", function (req, res) {
 });
 
 app.get("/listings", function(req, res) {
-  var listingMap = {};
   Listing.find({}, function(err, listings) {
-    listingMap = listings;
+    res.render("listings/index", { listings });
  });
-  setTimeout(function() {
-    res.render("listings/index", { listingMap });
-  }, 500);
 })
 
 app.get("/bookings/new", function(req, res) {
   require('url').parse("/booking/new", true);
-  var listing = {};
-  Listing.findById(req.query.id, function(err, item) {
-    listing = item;
-  })
-
-  setTimeout(function() {
+  Listing.findById(req.query.id, function(err, listing) {
     res.render("bookings/new", { listing })
-  }, 500);
+  })
 })
 
 app.post("/bookings/new", function(req, res) {
-  var currentListing = {};
-  Listing.findById("57e1497c69577f313a3a148d", function(err, item) { currentListing = item});
-
-  setTimeout(function() {
-    Booking.create({bookedFrom: req.body.book_to,
-                    bookedTo: req.body.book_from,
+  Listing.findById("57e1497c69577f313a3a148d", function(err, currentListing) {
+    Booking.create({bookedFrom: req.body.book_from,
+                    bookedTo: req.body.book_to,
                     confirmed: false,
                     totalPrice: 120,
                     listing: currentListing
@@ -80,26 +68,18 @@ app.post("/bookings/new", function(req, res) {
           console.log('New booking has been created');
         }
       };
-  }, 500);
-
-  setTimeout(function() {
-    res.redirect("/bookings");
-  }, 500);
+      res.redirect("/bookings");
+  });
 });
 
 app.get("/bookings", function(req, res) {
-  var bookingsMap = {};
   Booking.find({}, function(err, bookings) {
-    bookingsMap = bookings;
+    res.render("bookings/index", { bookings });
   });
-  setTimeout(function() {
-    res.render("bookings/index", { bookingsMap });
-  }, 500)
 })
 
 app.listen(3000, function () {
   console.log('Makers B&B app listening on port 3000!');
 });
-
 
 // https://expressjs.com/en/guide/routing.html - instruction how to create seperate files with routing
