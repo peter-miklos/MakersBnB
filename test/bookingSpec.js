@@ -29,10 +29,10 @@ describe('User visits add booking page', function() {
 
     before(function(done) {
       browser
-        .clickLink('Makers Flat', function() {})
-        //.fill('book_from', '2017-01-01')
-        //.fill('book_to', '2017-01-04')
-        .pressButton('Request to book', done);
+        .clickLink('Makers Flat', function(){});
+      setTimeout(function() {
+        browser.pressButton('Request to book', done);
+      }, 500);
     });
 
     it('should be successful', function() {
@@ -44,7 +44,7 @@ describe('User visits add booking page', function() {
     });
 
     it('should see my request page', function() {
-      browser.assert.text('title', 'My requests');
+      browser.assert.text('title', 'My bookings');
     });
   });
 

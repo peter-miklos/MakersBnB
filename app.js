@@ -9,6 +9,10 @@ var mongoose = require('mongoose');
 var Listing = mongoose.model('Listing');
 var booking = require('./app/models/booking');
 var Booking = mongoose.model('Booking');
+
+var NodeSession = require('node-session');
+var session = new NodeSession({secret: 'mySecretKey'});
+
 //var cookieSession = require('cookie-session');
 //var cookieParser = require('cookie-parser');
 
@@ -60,9 +64,11 @@ app.get("/bookings/new", function(req, res) {
   var listing = {};
   Listing.findById(req.query.id, function(err, item) {
     listing = item;
+    req.session.put("id", item)
     //req.session.list = item;
   })
 
+  console.log(req.session.get("id"));
   //console.log(req.session.list)
 
   setTimeout(function() {
@@ -71,7 +77,6 @@ app.get("/bookings/new", function(req, res) {
 })
 
 app.post("/bookings/new", function(req, res) {
-  console.log(req.session);
   Booking.create({bookedFrom: 2016-01-01,
                             bookedTo: 2016-01-02,
                             confirmed: false,
@@ -83,8 +88,21 @@ app.post("/bookings/new", function(req, res) {
           } else {
             console.log('New booking has been created');
           }
-        };
+      };
+  setTimeout(function() {
+    res.redirect("/bookings");
+  });
 });
+
+app.get("/bookings", function(req, res) {
+  var bookingsMap = {};
+  Booking.find({}, function(err, bookings) {
+    bookingsMap = bookings;
+  });
+  setTimeout(function() {
+    res.render("bookings/index", { bookingsMap });
+  }, 500)
+})
 
 app.listen(3000, function () {
   console.log('Makers B&B app listening on port 3000!');
