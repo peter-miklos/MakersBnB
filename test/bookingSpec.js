@@ -31,7 +31,10 @@ describe('User visits add booking page', function() {
       browser
         .clickLink('Makers Flat', function(){});
       setTimeout(function() {
-        browser.pressButton('Request to book', done);
+        browser
+          .fill('book_from', '2016-12-01')
+          .fill('book_to', '2016-12-10')
+          .pressButton('Request to book', done)
       }, 500);
     });
 

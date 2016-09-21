@@ -3,13 +3,23 @@
 </head>
 <body>
   <h1>Book a listing</h1>
+
   <p>You've chosen the following item:</p>
   <%= listing.name %><br>
   <%= listing.description%><br>
   Available from: <%= listing.availableFrom %><br>
   Available to: <%= listing.availableTo %><br>
-<form action="/bookings/new" method="post">
-  <input type="submit" value="Request to book"></input>
-</form>
+  <div>
+    <form action="/bookings/new" method="post">
+      <label>Start date:
+        <input type="date" name="book_from" require>
+      </label>
+      <label for="end-date">End date:
+        <input type="date" name="book_to" require>
+      </label>
+      <input type="submit" value="Request to book"></input>
+    </form>
+
+  </div>
 </body>
 </html>

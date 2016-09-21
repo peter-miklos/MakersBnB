@@ -10,15 +10,6 @@ var Listing = mongoose.model('Listing');
 var booking = require('./app/models/booking');
 var Booking = mongoose.model('Booking');
 
-var NodeSession = require('node-session');
-var session = new NodeSession({secret: 'mySecretKey'});
-
-//var cookieSession = require('cookie-session');
-//var cookieParser = require('cookie-parser');
-
-//app.use(express.cookieParser());
-//app.use(express.session({secret: '1234567890QWERTY'}));
-
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({
   extended: true
@@ -35,17 +26,17 @@ app.get("/listings/new", function (req, res) {
 
 app.post("/listings", function (req, res) {
   Listing.create({name: req.body.name,
-                            description: req.body.description,
-                            price: req.body.price,
-                            availableFrom: req.body.available_from,
-                            availableTo: req.body.available_to}),
-        function (err, listing) {
-          if (err) {
-            res.send("There was a problem adding the information to the database.");
-          } else {
-            console.log('New listing has been created');
-          }
-        };
+                  description: req.body.description,
+                  price: req.body.price,
+                  availableFrom: req.body.available_from,
+                  availableTo: req.body.available_to}),
+    function (err, listing) {
+      if (err) {
+        res.send("There was a problem adding the information to the database.");
+      } else {
+        console.log('New listing has been created');
+      }
+    };
   res.redirect("/listings");
 });
 
@@ -64,12 +55,7 @@ app.get("/bookings/new", function(req, res) {
   var listing = {};
   Listing.findById(req.query.id, function(err, item) {
     listing = item;
-    req.session.put("id", item)
-    //req.session.list = item;
   })
-
-  console.log(req.session.get("id"));
-  //console.log(req.session.list)
 
   setTimeout(function() {
     res.render("bookings/new", { listing })
@@ -77,21 +63,28 @@ app.get("/bookings/new", function(req, res) {
 })
 
 app.post("/bookings/new", function(req, res) {
-  Booking.create({bookedFrom: 2016-01-01,
-                            bookedTo: 2016-01-02,
-                            confirmed: false,
-                            totalPrice: 100,
-                            }),
-        function (err, listing) {
-          if (err) {
-            res.send("There was a problem adding the information to the database.");
-          } else {
-            console.log('New booking has been created');
-          }
+  var currentListing = {};
+  Listing.findById("57e1497c69577f313a3a148d", function(err, item) { currentListing = item});
+
+  setTimeout(function() {
+    Booking.create({bookedFrom: req.body.book_to,
+                    bookedTo: req.body.book_from,
+                    confirmed: false,
+                    totalPrice: 120,
+                    listing: currentListing
+                    }),
+      function (err, booking) {
+        if (err) {
+          res.send("There was a problem adding the information to the database.");
+        } else {
+          console.log('New booking has been created');
+        }
       };
+  }, 500);
+
   setTimeout(function() {
     res.redirect("/bookings");
-  });
+  }, 500);
 });
 
 app.get("/bookings", function(req, res) {

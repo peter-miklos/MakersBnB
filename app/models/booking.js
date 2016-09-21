@@ -4,7 +4,11 @@ var bookingSchema = mongoose.Schema({
   bookedFrom: Date,
   bookedTo: Date,
   confirmed: Boolean,
-  totalPrice: Number
+  totalPrice: Number,
+  listing: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Listing'
+    }
 });
 
 mongoose.model('Booking', bookingSchema);
