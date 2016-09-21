@@ -3,8 +3,8 @@ process.env.NODE_ENV ? process.env.NODE_ENV : process.env.NODE_ENV = 'developmen
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
-var db = require('./models/db')
-var listing = require('./models/listing')
+var db = require('./config/db')
+var listing = require('./app/models/listing')
 var mongoose = require('mongoose');
 var Listing = mongoose.model('Listing');
 
