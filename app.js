@@ -17,9 +17,9 @@ var passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy;
 
 var bcrypt = require('bcrypt');
-  const saltRounds = 10;
-  const myPlaintextPassword = 's0/\/\P4$$w0rD';
-  const someOtherPlaintextPassword = 'not_bacon';
+  var saltRounds = 10;
+  var myPlaintextPassword = 's0/\/\P4$$w0rD';
+  var someOtherPlaintextPassword = 'not_bacon';
 
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -43,7 +43,9 @@ app.post("/listings", function (req, res) {
                   description: req.body.description,
                   price: req.body.price,
                   availableFrom: req.body.available_from,
-                  availableTo: req.body.available_to}),
+                  availableTo: req.body.available_to,
+                  owner: req.session.user
+                }),
     function (err, listing) {
       if (err) {
         res.send("There was a problem adding the information to the database.");
@@ -111,8 +113,8 @@ app.post("/users/new", function (req, res) {
           }
         };
         setTimeout(function() {
-          User.findOne({'email': req.body.email}, function(err,testing){
-            req.session.user = testing.email;
+          User.findOne({'email': req.body.email}, function(err,user){
+            req.session.user = user;
             req.session.save();
             res.redirect("/listings");
           });
@@ -135,8 +137,8 @@ app.post('/users/login', function(req, res){
     var currentPassword = user.password;
     bcrypt.compare(userInput, currentPassword, function(err, bcryptRes) {
         if (bcryptRes == true) {
-          User.findOne({'email': req.body.email}, function(err, testing){
-            req.session.user = testing.email;
+          User.findOne({'email': req.body.email}, function(err, user){
+            req.session.user = user;
             req.session.save();
           });
           res.redirect("/listings");

@@ -5,9 +5,11 @@ var listingSchema = mongoose.Schema({
   description: String,
   price: Number,
   availableFrom: Date,
-  availableTo: Date
+  availableTo: Date,
+  owner: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }
 });
 
 mongoose.model('Listing', listingSchema);
-
-console.log('This file (listing.js) is loaded too!')

@@ -8,9 +8,11 @@ var bookingSchema = mongoose.Schema({
   listing: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Listing'
+    },
+  requester: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'User'
     }
 });
 
 mongoose.model('Booking', bookingSchema);
-
-//console.log('This file (listing.js) is loaded too!')
