@@ -49,7 +49,7 @@ app.post("/listings", function (req, res) {
                   price: req.body.price,
                   availableFrom: req.body.available_from,
                   availableTo: req.body.available_to,
-                  owner: req.session.user
+                  owner: req.session.user.id
                 }),
     function (err, listing) {
       if (err) {
@@ -91,7 +91,7 @@ app.post("/bookings/new", function(req, res) {
                     confirmed: false,
                     totalPrice: 120,
                     listing: currentListing,
-                    requester: req.session.user
+                    requester: req.session.user.id
                     }),
       function (err, booking) {
         if (err) {
@@ -106,7 +106,8 @@ app.post("/bookings/new", function(req, res) {
 
 app.get("/bookings", function(req, res) {
   Booking.find({}, function(err, bookings) {
-    res.render("bookings/index", { bookings });
+    var currentListing = req.session.listing;
+    res.render("bookings/index", { bookings, currentListing });
   });
 })
 
