@@ -28,6 +28,13 @@ app.use(session({secret: 'mysecretphrase',
                   resave: false,
                   saveUninitialized: true
 }));
+
+app.use(function(req,res,next){
+  res.locals.currentUser = req.session.user;
+  next()
+})
+
+
 app.engine('ejs', engine);
 app.set("view engine", "ejs");
 
@@ -95,12 +102,13 @@ app.get("/bookings/new", function(req, res) {
 
 app.post("/bookings/new", function(req, res) {
   Listing.findById(req.session.listing, function(err, currentListing) {
+    console.log(currentListing.name);
     Booking.create({bookedFrom: req.body.book_from,
                     bookedTo: req.body.book_to,
                     confirmed: false,
                     totalPrice: 120,
-                    listing: currentListing,
-                    requester: req.session.user.id
+                    listing: currentListing.name,
+                    requester: req.session.user
                     }),
       function (err, booking) {
         if (err) {
@@ -114,7 +122,7 @@ app.post("/bookings/new", function(req, res) {
 });
 
 app.get("/bookings", function(req, res) {
-  Booking.find({}, function(err, bookings) {
+  Booking.find({'requester': req.session.user}, function(err, bookings) {
     var currentListing = req.session.listing;
     res.render("bookings/index", { bookings, currentListing });
   });

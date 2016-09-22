@@ -5,10 +5,11 @@ var bookingSchema = mongoose.Schema({
   bookedTo: Date,
   confirmed: Boolean,
   totalPrice: Number,
-  listing: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Listing'
-    },
+  lising: String,
+  // listing: {
+  //       type: mongoose.Schema.Types.ObjectId,
+  //       ref: 'Listing'
+  //   },
   requester: {
           type: mongoose.Schema.Types.ObjectId,
           ref: 'User'
