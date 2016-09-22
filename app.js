@@ -68,17 +68,20 @@ app.get("/listings", function(req, res) {
 app.get("/bookings/new", function(req, res) {
   require('url').parse("/booking/new", true);
   Listing.findById(req.query.id, function(err, listing) {
+    req.session.listing = listing;
+    req.session.save();
     res.render("bookings/new", { listing })
   });
 });
 
 app.post("/bookings/new", function(req, res) {
-  Listing.findById("57e1497c69577f313a3a148d", function(err, currentListing) {
+  Listing.findById(req.session.listing, function(err, currentListing) {
     Booking.create({bookedFrom: req.body.book_from,
                     bookedTo: req.body.book_to,
                     confirmed: false,
                     totalPrice: 120,
-                    listing: currentListing
+                    listing: currentListing,
+                    requester: req.session.user
                     }),
       function (err, booking) {
         if (err) {
