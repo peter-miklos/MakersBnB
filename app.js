@@ -167,6 +167,21 @@ app.post('/users/login', function(req, res){
   });
 });
 
+app.get('/listings_filter', function(req, res){
+  setTimeout(function() {
+    console.log(req.query.book_from);
+  }, 500);
+  var name;
+  if(!!req.session.user) {
+    name = req.session.user.name};
+  Listing.find({'availableFrom': {'$gte': req.query.book_from}},
+
+                // {'availableTo': {'$lte': req.body.book_to}},
+               function(err,listings){
+    res.render("listings/index", { listings, name });
+  });
+});
+
 app.get('/users/logout', function(req, res) {
   req.session.destroy();
   res.redirect('/listings');
