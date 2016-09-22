@@ -48,7 +48,7 @@ describe('User visits add listing page', function() {
     });
 
     it('should see welcome page', function() {
-      browser.assert.text('title', 'Listings');
+      browser.assert.text('h1', 'Listings');
     });
   });
 

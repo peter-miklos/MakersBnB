@@ -52,7 +52,7 @@ describe('User visits add booking page', function() {
     });
 
     it('should see my request page', function() {
-      browser.assert.text('title', 'My bookings');
+      browser.assert.text('h1', 'Bookings');
     });
   });
 
