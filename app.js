@@ -57,17 +57,20 @@ app.post("/listings", function (req, res) {
 });
 
 app.get("/listings", function(req, res) {
+  var name
+  if(!!req.session.user) {
+    name = req.session.user.name};
   Listing.find({}, function(err, listings) {
-    res.render("listings/index", { listings });
+    res.render("listings/index", { listings, name });
  });
-})
+});
 
 app.get("/bookings/new", function(req, res) {
   require('url').parse("/booking/new", true);
   Listing.findById(req.query.id, function(err, listing) {
     res.render("bookings/new", { listing })
-  })
-})
+  });
+});
 
 app.post("/bookings/new", function(req, res) {
   Listing.findById("57e1497c69577f313a3a148d", function(err, currentListing) {
@@ -147,6 +150,11 @@ app.post('/users/login', function(req, res){
         }
     });
   });
+});
+
+app.get('users/logout', function(req, res) {
+  req.session.destroy();
+  res.redirect('/listings');
 });
 
 app.listen(3000, function () {
