@@ -35,7 +35,12 @@ app.get('/', function (req, res) {
 });
 
 app.get("/listings/new", function (req, res) {
-  res.render("listings/new", {});
+  if (req.session.user) {
+    res.render("listings/new", {});
+  }
+  else {
+    res.redirect("/users/login");
+  }
 });
 
 app.post("/listings", function (req, res) {
@@ -66,12 +71,17 @@ app.get("/listings", function(req, res) {
 });
 
 app.get("/bookings/new", function(req, res) {
-  require('url').parse("/booking/new", true);
-  Listing.findById(req.query.id, function(err, listing) {
-    req.session.listing = listing;
-    req.session.save();
-    res.render("bookings/new", { listing })
-  });
+  if (req.session.user) {
+    require('url').parse("/booking/new", true);
+    Listing.findById(req.query.id, function(err, listing) {
+      req.session.listing = listing;
+      req.session.save();
+      res.render("bookings/new", { listing })
+    });
+  }
+  else {
+    res.redirect("/users/login");
+  }
 });
 
 app.post("/bookings/new", function(req, res) {
@@ -155,7 +165,7 @@ app.post('/users/login', function(req, res){
   });
 });
 
-app.get('users/logout', function(req, res) {
+app.get('/users/logout', function(req, res) {
   req.session.destroy();
   res.redirect('/listings');
 });
