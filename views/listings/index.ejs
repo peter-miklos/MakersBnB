@@ -1,5 +1,4 @@
 <% layout('../layout') -%>
-<%= "Welcome " + currentUser.name %>
 
 <form action="/listings_filter" method="get">
   <label>Book from:
@@ -10,7 +9,7 @@
   </label>
   <input type="submit" value="Search availability!">
   <h1>Listings</h1>
-  
+
 <table class="table table-bordered" id="main-table">
   <thead>
     <tr>

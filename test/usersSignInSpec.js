@@ -36,7 +36,7 @@ describe('User visits the page and signs in', function() {
     });
 
     it('shows the registered listing', function() {
-      browser.assert.text("body", /Welcome Zombie/);
+      browser.assert.text("nav", /Logged in: zombie1@dead.com/);
     });
 
     it('should see welcome page', function() {
