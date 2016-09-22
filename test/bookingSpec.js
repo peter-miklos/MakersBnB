@@ -10,20 +10,26 @@ describe('User visits add booking page', function() {
   var app = require("../app.js");
 
   before(function(done) {
-    browser.visit('/listings/new').then(function(){
-    browser
-        .fill('name',    'Makers Flat')
-        .fill('description', 'Lorem Ipsum is simply dummy text of the printing versions of Lorem Ipsum.')
-        .fill('price', '60')
-        .fill('available_from', '2016-01-01')
-        .fill('available_to', '2016-12-31')
-        .pressButton('List my space!', done);
-    });
-  });
-
     mongoose.model('Booking').remove({}, function(err) {
       console.log('collection removed')
     });
+    mongoose.model('User').create({name:      "Test User",
+                                   email:     'test1@test.com',
+                                   password:  '$2a$10$V4lKSiN/LpKWYLPgjuGUXevpu6zHO0gPEMWVo0syv8GwIc3H3p2xG'
+    });
+    mongoose.model('Listing').create({name:        "Makers Flat",
+                                   description: "Large flat with nice view",
+                                   price: 88,
+                                   available_from: '2016-01-01',
+                                   available_to: '2016-12-31'
+    });
+    browser.visit('/users/login').then(function() {
+      browser
+        .fill('email', 'test1@test.com')
+        .fill('password', '111')
+        .pressButton('Log in', done);
+    });
+  });
 
   describe('submits booking', function() {
 
