@@ -32,6 +32,14 @@ app.engine('ejs', engine);
 app.set("view engine", "ejs");
 
 app.get('/', function (req, res) {
+  if (req.session.user) {
+    res.redirect("/listings");
+  }
+  else {
+    res.redirect("/users/login");
+  }
+
+
   res.send('Hello, Makers B&B welcomes you!!');
 });
 
@@ -63,11 +71,11 @@ app.post("/listings", function (req, res) {
 });
 
 app.get("/listings", function(req, res) {
-  var name
+  var currentUser
   if(!!req.session.user) {
-    name = req.session.user.name};
+    currentUser = req.session.user};
   Listing.find({}, function(err, listings) {
-    res.render("listings/index", { listings, name });
+    res.render("listings/index", { listings, currentUser });
  });
 });
 
