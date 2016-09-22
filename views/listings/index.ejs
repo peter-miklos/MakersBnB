@@ -5,6 +5,14 @@
   </head>
   <body>
     <%= "Welcome " + name %>
+    <form action="/listings_filter" method="get">
+      <label>Book from:
+        <input type="date" name="book_from">
+      </label>
+      <label>Book to:
+        <input type="date" name="book_to">
+      </label>
+      <input type="submit" value="Search availability!">
     <h1>Listings</h1>
 
 
