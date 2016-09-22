@@ -4,6 +4,7 @@
   "description": "Makers B&B project",
   "main": "index.js",
   "dependencies": {
+    "bcrypt": "^0.8.7",
     "body-parser": "^1.15.2",
     "chai": "^3.5.0",
     "ejs": "^2.5.2",
@@ -12,6 +13,8 @@
     "mocha": "^3.0.2",
     "mongodb": "^2.2.10",
     "mongoose": "^4.6.0",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
     "request": "^2.75.0"
   },
   "devDependencies": {

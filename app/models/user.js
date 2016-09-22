@@ -1,13 +1,11 @@
-'use strict';
-
 var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
 
-var UsersSchema = new Schema ({
+var usersSchema = mongoose.Schema ({
   name: String,
-  username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
 });
 
-mongoose.model('users', UsersSchema);
+mongoose.model('User', usersSchema);
+
+console.log('This file (user.js) is loaded too!');
