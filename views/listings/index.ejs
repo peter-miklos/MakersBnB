@@ -1,34 +1,25 @@
-<html>
-  <head>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-    <title>Listings</title>
-  </head>
-  <body>
-    <%= "Welcome " + name %>
-    <h1>Listings</h1>
+<% layout('../layout') -%>
 
+<%= "Welcome " + name %>
+<h1>Listings</h1>
 
-    <table class="table table-bordered" id="main-table">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Name</th>
-          <th>Description</th>
-          <th>Price</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% listings.forEach(function(listing, index) { %>
-        <tr>
-          <th scope="row"><%= index + 1 %></th>
-          <td><a href=<%= "/bookings/new?id=" + listing.id %>><%= listing.name %></a></td>
-          <td><%= listing.description %></td>
-          <td><%= listing.price %></td>
-        </tr>
-        <% });%>
-      </tbody>
-    </table>
-
-
-  </body>
-</html>
+<table class="table table-bordered" id="main-table">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% listings.forEach(function(listing, index) { %>
+    <tr>
+      <th scope="row"><%= index + 1 %></th>
+      <td><a href=<%= "/bookings/new?id=" + listing.id %>><%= listing.name %></a></td>
+      <td><%= listing.description %></td>
+      <td><%= listing.price %></td>
+    </tr>
+    <% });%>
+  </tbody>
+</table>

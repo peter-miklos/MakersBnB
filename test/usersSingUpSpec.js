@@ -37,7 +37,7 @@ describe('User visits the page and signs up', function() {
     });
 
     it('should see welcome page', function() {
-      browser.assert.text('title', 'Listings');
+      browser.assert.text('h1', 'Listings');
     });
   });
 

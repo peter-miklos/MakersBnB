@@ -12,6 +12,7 @@ var Listing = mongoose.model('Listing');
 var booking = require('./app/models/booking');
 var Booking = mongoose.model('Booking');
 var User = mongoose.model('User');
+var engine = require('ejs-locals');
 
 var passport = require('passport'),
     LocalStrategy = require('passport-local').Strategy;
@@ -27,7 +28,7 @@ app.use(session({secret: 'mysecretphrase',
                   resave: false,
                   saveUninitialized: true
 }));
-
+app.engine('ejs', engine);
 app.set("view engine", "ejs");
 
 app.get('/', function (req, res) {
