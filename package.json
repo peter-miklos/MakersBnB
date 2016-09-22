@@ -8,6 +8,7 @@
     "chai": "^3.5.0",
     "ejs": "^2.5.2",
     "express": "^4.14.0",
+    "express-session": "^1.14.1",
     "mocha": "^3.0.2",
     "mongodb": "^2.2.10",
     "mongoose": "^4.6.0",

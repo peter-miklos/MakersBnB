@@ -5,7 +5,7 @@ var listingSchema = mongoose.Schema({
   description: String,
   price: Number,
   availableFrom: Date,
-  availableTo: Date,
+  availableTo: Date
 });
 
 mongoose.model('Listing', listingSchema);

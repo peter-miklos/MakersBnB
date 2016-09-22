@@ -1,0 +1,36 @@
+<html>
+  <head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <title>My bookings</title>
+  </head>
+  <body>
+    <h1>Bookings</h1>
+
+    <table class="table table-bordered" id="main-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Booked from</th>
+          <th>Booked to</th>
+          <th>Total price</th>
+          <th>Confirmed</th>
+          <th>Listing</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% bookings.forEach(function(booking, index) { %>
+        <tr>
+          <th scope="row"><%= index + 1 %></th>
+          <td><%= booking.bookedFrom %></td>
+          <td><%= booking.bookedTo %></td>
+          <td><%= booking.totalPrice %></td>
+          <td><%= booking.confirmed %></td>
+          <td><%= booking.listing %></td>
+        </tr>
+        <% });%>
+      </tbody>
+    </table>
+
+
+  </body>
+</html>

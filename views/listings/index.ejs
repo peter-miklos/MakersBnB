@@ -6,6 +6,7 @@
   <body>
     <h1>Listings</h1>
 
+
     <table class="table table-bordered" id="main-table">
       <thead>
         <tr>
@@ -16,10 +17,10 @@
         </tr>
       </thead>
       <tbody>
-        <% listingMap.forEach(function(listing, index) { %>
+        <% listings.forEach(function(listing, index) { %>
         <tr>
           <th scope="row"><%= index + 1 %></th>
-          <td><%= listing.name %></td>
+          <td><a href=<%= "/bookings/new?id=" + listing.id %>><%= listing.name %></a></td>
           <td><%= listing.description %></td>
           <td><%= listing.price %></td>
         </tr>
