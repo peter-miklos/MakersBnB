@@ -30,7 +30,7 @@ app.use(session({secret: 'mysecretphrase',
 }));
 app.use(function(req,res,next){
   res.locals.currentUser = req.session.user;
-  next()
+  next();
 });
 
 app.engine('ejs', engine);
@@ -188,6 +188,15 @@ app.get('/listings_filter', function(req, res){
 app.get('/users/logout', function(req, res) {
   req.session.destroy();
   res.redirect('/listings');
+});
+
+app.use(function(req,res,next){
+  res.status(404).send('Sorry cant find that!');
+});
+
+app.use(function(err, req, res, next) {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
 });
 
 app.listen(3000, function () {
