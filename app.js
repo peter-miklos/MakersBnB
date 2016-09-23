@@ -133,10 +133,11 @@ app.get('/bookings/complete', function(req, res) {
       Booking.find({}).where('listing').equals(currentBooking.listing).where('confirmed').equals(false).where('rejected').equals(false).exec(function(err, bookings) {
         bookings.forEach(function(booking) {
           Booking.findOneAndUpdate({ _id: booking._id }, {$set: { rejected: true } }, {new: true}, function(err, booking) {
-            res.redirect('/bookings');
           });
-        })
-      })
+        });
+        res.redirect('/bookings');
+        Listing.findOneAndUpdate({ _id: currentBooking.listing }, {$set: { booking: currentBooking } }, {new: true}, function(err, listing) {});
+      });
     })
   }
   else if (req.query.action === "reject") {
