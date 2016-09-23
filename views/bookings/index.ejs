@@ -20,7 +20,7 @@
       <th scope="row"><%= index + 1 %></th>
       <td><%= receivedBooking.listingName %></td>
       <td><%= receivedBooking.requesterName %></td>
-      <td><%= receivedBooking.bookingDate %></td>
+      <td><%= new Date(receivedBooking.bookingDate).toDateString() %></td>
       <td><%= receivedBooking.totalPrice %></td>
       <td>
         <% if (receivedBooking.confirmed === false && receivedBooking.rejected === false) { %>
