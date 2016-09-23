@@ -35,10 +35,14 @@ describe('User visits add booking page', function() {
     before(function(done) {
       browser
         .fill('filter_date', '2016-12-31')
-        .clickLink('Makers Flat', function(){
+        .pressButton('Search availability', function() {
           browser
-            .pressButton('Request to book', done)
-        });
+            .clickLink('Makers Flat', function(){
+              browser
+                .pressButton('Request to book', done)
+          });
+        })
+
     });
 
     it('should be successful', function() {
@@ -146,22 +150,25 @@ describe('User visits list of bookings and confirm or reject', function() {
     before(function(done) {
       browser
         .fill('filter_date', '2016-12-31')
-        .clickLink('Makers Flat', function(){
+        .pressButton('Search availability', function() {
           browser
-            .pressButton('Request to book', function() {
-              browser.visit('/listings').then(function() {
-                browser
-                  .fill('filter_date', '2016-12-31')
-                  .clickLink('Makers Flat', function() {
-                    browser
-                      .pressButton('Request to book', function() {
-                        browser
-                          .pressButton('Confirm', done);
-                      })
-                  })
+          .clickLink('Makers Flat', function(){
+            browser
+              .pressButton('Request to book', function() {
+                browser.visit('/listings').then(function() {
+                  browser
+                    .fill('filter_date', '2016-12-31')
+                    .clickLink('Makers Flat', function() {
+                      browser
+                        .pressButton('Request to book', function() {
+                          browser
+                            .pressButton('Confirm', done);
+                        })
+                    })
+                })
               })
-            })
-        });
+          })
+        })
     });
 
     it('should be successful', function() {
@@ -177,18 +184,21 @@ describe('User visits list of bookings and confirm or reject', function() {
     });
   });
 
-  describe('confirm booking', function() {
+  describe('reject booking', function() {
 
     before(function(done) {
       browser
         .fill('filter_date', '2016-12-31')
-        .clickLink('Makers Flat', function(){
+        .pressButton('Search availability', function() {
           browser
-            .pressButton('Request to book', function() {
-              browser
-                .pressButton('Reject', done)
-            })
-        });
+          .clickLink('Makers Flat', function(){
+            browser
+              .pressButton('Request to book', function() {
+                browser
+                  .pressButton('Reject', done)
+              })
+          });
+        })
     });
 
     it('should be successful', function() {
@@ -202,8 +212,6 @@ describe('User visits list of bookings and confirm or reject', function() {
     it('should see my request page', function() {
       browser.assert.text('h1', 'Bookings');
     });
-
-    // Error message should be thrown
   });
 
 });

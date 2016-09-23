@@ -34,7 +34,11 @@ describe('User visits add listing page', function() {
         .fill('description', "Large flat with nice view")
         .fill('price', 88)
         .fill('available', '2016-01-01')
-        .pressButton('List my space!', done);
+        .pressButton('List my space!', function() {
+          browser
+          .fill('filter_date', '2016-01-01')
+          .pressButton('Search availability', done);
+        })
       });
     });
 

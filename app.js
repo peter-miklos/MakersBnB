@@ -37,12 +37,7 @@ app.engine('ejs', engine);
 app.set("view engine", "ejs");
 
 app.get('/', function (req, res) {
-  if (req.session.user) {
-    res.redirect("/listings");
-  }
-  else {
-    res.redirect("/users/login");
-  }
+  res.render("index", {});
 });
 
 app.get("/listings/new", function (req, res) {
@@ -74,9 +69,13 @@ app.post("/listings", function (req, res) {
 });
 
 app.get("/listings", function(req, res) {
-  Listing.find({}, function(err, listings) {
-    res.render("listings/index", { listings });
-  });
+  if (req.session.filter_date) {
+    Listing.find({}).where('available').equals(req.session.filter_date).where('booking').equals(null).exec(function(err, listings) {
+      res.render("listings/index", { listings });
+    });
+  } else {
+    res.render("listings/index", { listings: null });
+  }
 });
 
 app.get("/bookings/new", function(req, res) {
