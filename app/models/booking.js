@@ -1,8 +1,7 @@
 var mongoose = require('mongoose');
 
 var bookingSchema = mongoose.Schema({
-  bookedFrom: Date,
-  bookedTo: Date,
+  bookingDate: Date,
   confirmed: Boolean,
   rejected: Boolean,
   totalPrice: Number,

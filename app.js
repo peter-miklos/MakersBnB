@@ -94,8 +94,7 @@ app.get("/bookings/new", function(req, res) {
 
 app.post("/bookings/new", function(req, res) {
   Listing.findById(req.session.listing, function(err, currentListing) {
-    Booking.create({bookedFrom: req.body.book_from,
-                    bookedTo: req.body.book_to,
+    Booking.create({bookingDate: req.session.filter_date,
                     confirmed: false,
                     rejected: false,
                     totalPrice: currentListing.price,
@@ -153,7 +152,6 @@ app.post("/users/new", function (req, res) {
   }
   else {
     console.log("User add failure, password mismatch?");
-    //add flash message functonality
     res.redirect("/users/new")};
 });
 
@@ -184,20 +182,6 @@ app.get('/listings_filter', function(req, res){
   Listing.find({}).where('available').equals(req.session.filter_date).where('booking').equals(null).exec(function(err, listings) {
     res.render("listings/index", { listings });
   })
-
-
-  // setTimeout(function() {
-  //   console.log(req.query.filter_date);
-  // }, 500);
-  // var name;
-  // if(!!req.session.user) {
-  //   name = req.session.user.name};
-  // Listing.find({'availableFrom': {'$gte': req.query.filter_date}},
-  //
-  //               // {'availableTo': {'$lte': req.body.book_to}},
-  //              function(err,listings){
-    // res.render("listings/index", { listings, name });
-  // });
 });
 
 app.get('/users/logout', function(req, res) {

@@ -7,8 +7,7 @@
     <tr>
       <th>#</th>
       <th>Listing name</th>
-      <th>Booked from</th>
-      <th>Booked to</th>
+      <th>Booking date</th>
       <th>Total price</th>
       <th>Confirm</th>
       <th>Reject</th>
@@ -19,8 +18,7 @@
     <tr>
       <th scope="row"><%= index + 1 %></th>
       <td><%= receivedBooking.listingName %></td>
-      <td><%= receivedBooking.bookedFrom %></td>
-      <td><%= receivedBooking.bookedTo %></td>
+      <td><%= receivedBooking.bookingDate %></td>
       <td><%= receivedBooking.totalPrice %></td>
       <td>
         <% if (receivedBooking.confirmed === false && receivedBooking.rejected === false) { %>
@@ -52,8 +50,7 @@
     <tr>
       <th>#</th>
       <th>Listing name</th>
-      <th>Booked from</th>
-      <th>Booked to</th>
+      <th>Booking date</th>
       <th>Total price</th>
       <th>Status</th>
     </tr>
@@ -63,8 +60,7 @@
     <tr>
       <th scope="row"><%= index + 1 %></th>
       <td><%= booking.listingName %></td>
-      <td><%= booking.bookedFrom %></td>
-      <td><%= booking.bookedTo %></td>
+      <td><%= booking.bookingDate %></td>
       <td><%= booking.totalPrice %></td>
       <td>
         <% if (booking.confirmed) { %>
