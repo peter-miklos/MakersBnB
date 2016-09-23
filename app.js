@@ -94,7 +94,7 @@ app.get("/bookings/new", function(req, res) {
 
 app.post("/bookings/new", function(req, res) {
   Listing.findById(req.session.listing, function(err, currentListing) {
-    Booking.create({bookingDate: req.session.filter_date,
+    Booking.create({bookingDate: currentListing.available,
                     confirmed: false,
                     rejected: false,
                     totalPrice: currentListing.price,
