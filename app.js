@@ -202,11 +202,7 @@ app.post('/users/login', function(req, res){
 
 app.get('/listings_filter', function(req, res){
   req.session.filter_date = req.query.filter_date;
-  // Listing.find({}).where('available').equals(req.session.filter_date).where('booking').equals(null).exec(function(err, listings) {
-    Listing.find({'availableFrom': { $lte: req.session.filter_date}, 'availableTo': {$gte: req.session.filter_date}},
-        function(err, listings){
-
-               // {'availableTo': {'$lte': req.body.book_to}},
+  Listing.find({}).where('available').equals(req.session.filter_date).where('booking').equals(null).exec(function(err, listings) {
     res.render("listings/index", { listings });
   });
 });
