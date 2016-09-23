@@ -127,15 +127,16 @@ app.get("/bookings", function(req, res) {
 
 app.get('/bookings/complete', function(req, res) {
   if (req.query.action === "confirm") {
-    // Booking.findById(req.query.booking_id, function(err, booking) {
-    //
-    // })
-    //
-    //
-    //
-    // booking_id
-    // listing_id
-    // all bookings where listing_id === id and confirm === false and rejected === false
+    Booking.findById(req.query.booking_id, function(err, currentBooking) {
+      Booking.findOneAndUpdate({ _id: currentBooking._id }, {$set: { confirmed: true } }, {new: true}, function(err, booking) {});
+      Booking.find({}).where('listing').equals(currentBooking.listing).where('confirmed').equals(false).where('rejected').equals(false).exec(function(err, bookings) {
+        bookings.forEach(function(booking) {
+          Booking.findOneAndUpdate({ _id: booking._id }, {$set: { rejected: true } }, {new: true}, function(err, booking) {
+            res.redirect('/bookings');
+          });
+        })
+      })
+    })
   }
   else if (req.query.action === "reject") {
     Booking.findOneAndUpdate({ _id: req.query.booking_id }, {$set: { rejected: true } }, {new: true}, function(err, booking) {} );
