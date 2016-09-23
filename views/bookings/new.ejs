@@ -1,19 +1,17 @@
 <% layout('../layout') -%>
-<h1>Book a listing</h1>
+<div class="container">
+  <div class="starter-template">
 
-<p>You've chosen the following item:</p>
-<%= listing.name %><br>
-<%= listing.description%><br>
-Available on: <%= new Date(listing.available).toDateString() %><br><br>
-<div>
-  <form action="/bookings/new" method="post">
-    <!-- <label>Start date:
-      <input type="date" name="book_from" require>
-    </label>
-    <label for="end-date">End date:
-      <input type="date" name="book_to" require>
-    </label> -->
-    <input type="submit" value="Request to book"></input>
-  </form>
+    <h1>Book a listing</h1>
 
+    <p>You've chosen the following item:</p>
+    <%= listing.name %><br>
+    <%= listing.description%><br>
+    Available on: <%= new Date(listing.available).toDateString() %><br><br>
+    <div>
+      <form action="/bookings/new" method="post">
+        <input type="submit" value="Request to book"></input>
+      </form>
+    </div>
+  </div>
 </div>
