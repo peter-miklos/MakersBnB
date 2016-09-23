@@ -52,7 +52,7 @@ describe('User can search within a given date range', function() {
     });
 
     it('shows the registered listing', function() {
-      browser.assert.text("body", /Our Housee/);
+      browser.assert.text("body", /Makers Flat/);
     });
 
     it('should see welcome page', function() {
