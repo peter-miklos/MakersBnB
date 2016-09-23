@@ -6,9 +6,13 @@ var listingSchema = mongoose.Schema({
   price: { type: Number, required: true},
   available: { type: Date, required: true },
   owner: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
-    }
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  },
+  booking: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Booking'
+  }
 });
 
 mongoose.model('Listing', listingSchema);
