@@ -11,10 +11,10 @@ var bookingSchema = mongoose.Schema({
           type: mongoose.Schema.Types.ObjectId,
           ref: 'User'
   },
-  // listing: {
-  //       type: mongoose.Schema.Types.ObjectId,
-  //       ref: 'Listing'
-  //   },
+  listing: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Listing'
+  },
   requester: {
           type: mongoose.Schema.Types.ObjectId,
           ref: 'User'

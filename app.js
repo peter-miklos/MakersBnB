@@ -98,6 +98,7 @@ app.post("/bookings/new", function(req, res) {
                     confirmed: false,
                     rejected: false,
                     totalPrice: currentListing.price,
+                    listing: currentListing,
                     listingName: currentListing.name,
                     listingOwner: currentListing.owner,
                     requester: req.session.user,
@@ -123,6 +124,24 @@ app.get("/bookings", function(req, res) {
     });
   });
 })
+
+app.get('/bookings/complete', function(req, res) {
+  if (req.query.action === "confirm") {
+    // Booking.findById(req.query.booking_id, function(err, booking) {
+    //
+    // })
+    //
+    //
+    //
+    // booking_id
+    // listing_id
+    // all bookings where listing_id === id and confirm === false and rejected === false
+  }
+  else if (req.query.action === "reject") {
+    Booking.findOneAndUpdate({ _id: req.query.booking_id }, {$set: { rejected: true } }, {new: true}, function(err, booking) {} );
+    res.redirect('/bookings');
+  }
+});
 
 app.get("/users/new", function (req, res) {
   res.render("users/new", {});
