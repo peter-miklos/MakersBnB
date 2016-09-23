@@ -24,19 +24,27 @@
       <td><%= receivedBooking.totalPrice %></td>
       <td>
         <% if (receivedBooking.confirmed === false && receivedBooking.rejected === false) { %>
-        <form action="#">
-          <button name="confirm" class="btn btn-default" type="submit">Confirm</button>
+        <form action="/bookings/complete">
+          <input type="hidden" name="action" value="confirm">
+          <input type="hidden" name="booking_id" value=<%= receivedBooking.id %> >
+          <button name="confirm" class="btn btn-default btn-sm" type="submit" >Confirm</button>
         </form>
-        <% } else { %>
+        <% } else if (receivedBooking.rejected === false && receivedBooking.confirmed === true) { %>
         Confirmed
+        <% } else if (receivedBooking.rejected === true && receivedBooking.confirmed === false) { %>
+        Rejected
         <% } %>
       </td>
       <td>
         <% if (receivedBooking.rejected === false && receivedBooking.confirmed === false) { %>
-        <form action="#">
-          <button name="reject" class="btn btn-default" type="submit">Reject</button>
+        <form action="/bookings/complete">
+          <input type="hidden" name="action" value="reject">
+          <input type="hidden" name="booking_id" value=<%= receivedBooking.id %> >
+          <button name="reject" class="btn btn-default btn-sm" type="submit">Reject</button>
         </form>
-        <% } else { %>
+        <% } else if (receivedBooking.rejected === true && receivedBooking.confirmed === false) { %>
+        Rejected
+        <% } else if (receivedBooking.rejected === false && receivedBooking.confirmed === true) { %>
         Confirmed
         <% } %>
       </td>
