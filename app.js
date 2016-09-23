@@ -28,12 +28,10 @@ app.use(session({secret: 'mysecretphrase',
                   resave: false,
                   saveUninitialized: true
 }));
-
 app.use(function(req,res,next){
   res.locals.currentUser = req.session.user;
   next()
-})
-
+});
 
 app.engine('ejs', engine);
 app.set("view engine", "ejs");
@@ -45,9 +43,6 @@ app.get('/', function (req, res) {
   else {
     res.redirect("/users/login");
   }
-
-
-  res.send('Hello, Makers B&B welcomes you!!');
 });
 
 app.get("/listings/new", function (req, res) {
@@ -63,9 +58,8 @@ app.post("/listings", function (req, res) {
   Listing.create({name: req.body.name,
                   description: req.body.description,
                   price: req.body.price,
-                  availableFrom: req.body.available_from,
-                  availableTo: req.body.available_to,
-                  owner: req.session.user.id
+                  available: req.body.available,
+                  owner: req.session.user
                 }),
     function (err, listing) {
       if (err) {
@@ -78,12 +72,9 @@ app.post("/listings", function (req, res) {
 });
 
 app.get("/listings", function(req, res) {
-  var currentUser
-  if(!!req.session.user) {
-    currentUser = req.session.user};
   Listing.find({}, function(err, listings) {
-    res.render("listings/index", { listings, currentUser });
- });
+    res.render("listings/index", { listings });
+  });
 });
 
 app.get("/bookings/new", function(req, res) {
@@ -102,12 +93,13 @@ app.get("/bookings/new", function(req, res) {
 
 app.post("/bookings/new", function(req, res) {
   Listing.findById(req.session.listing, function(err, currentListing) {
-    console.log(currentListing.name);
     Booking.create({bookedFrom: req.body.book_from,
                     bookedTo: req.body.book_to,
                     confirmed: false,
-                    totalPrice: 120,
-                    listing: currentListing.name,
+                    rejected: false,
+                    totalPrice: currentListing.price,
+                    listingName: currentListing.name,
+                    listingOwner: currentListing.owner,
                     requester: req.session.user
                     }),
       function (err, booking) {
@@ -123,8 +115,11 @@ app.post("/bookings/new", function(req, res) {
 
 app.get("/bookings", function(req, res) {
   Booking.find({'requester': req.session.user}, function(err, bookings) {
-    var currentListing = req.session.listing;
-    res.render("bookings/index", { bookings, currentListing });
+    Booking.find({}).where('requester').equals(req.session.user).exec(function(err, myBookings) {
+      Booking.find({}).where('listingOwner').equals(req.session.user).exec(function(err, receivedBookings) {
+        res.render("bookings/index", { myBookings, receivedBookings });
+      });
+    });
   });
 })
 
@@ -184,13 +179,16 @@ app.post('/users/login', function(req, res){
 });
 
 app.get('/listings_filter', function(req, res){
+  req.session.filter_date = req.query.filter_date;
+
+
   setTimeout(function() {
-    console.log(req.query.book_from);
+    console.log(req.query.filter_date);
   }, 500);
   var name;
   if(!!req.session.user) {
     name = req.session.user.name};
-  Listing.find({'availableFrom': {'$gte': req.query.book_from}},
+  Listing.find({'availableFrom': {'$gte': req.query.filter_date}},
 
                 // {'availableTo': {'$lte': req.body.book_to}},
                function(err,listings){

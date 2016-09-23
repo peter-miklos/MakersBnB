@@ -33,8 +33,7 @@ describe('User visits add listing page', function() {
         .fill('name', "Makers Flat")
         .fill('description', "Large flat with nice view")
         .fill('price', 88)
-        .fill('available_from', '2016-01-01')
-        .fill('available_to', '2016-12-31')
+        .fill('available', '2016-01-01')
         .pressButton('List my space!', done);
       });
     });
