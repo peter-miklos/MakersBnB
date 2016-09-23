@@ -100,7 +100,8 @@ app.post("/bookings/new", function(req, res) {
                     totalPrice: currentListing.price,
                     listingName: currentListing.name,
                     listingOwner: currentListing.owner,
-                    requester: req.session.user
+                    requester: req.session.user,
+                    requesterName: req.session.user.name
                     }),
       function (err, booking) {
         if (err) {
@@ -117,7 +118,7 @@ app.get("/bookings", function(req, res) {
   Booking.find({'requester': req.session.user}, function(err, bookings) {
     Booking.find({}).where('requester').equals(req.session.user).exec(function(err, myBookings) {
       Booking.find({}).where('listingOwner').equals(req.session.user).exec(function(err, receivedBookings) {
-        res.render("bookings/index", { myBookings, receivedBookings });
+          res.render("bookings/index", { myBookings, receivedBookings });
       });
     });
   });
