@@ -6,6 +6,7 @@ var bookingSchema = mongoose.Schema({
   rejected: Boolean,
   totalPrice: Number,
   listingName: String,
+  requesterName: String,
   listingOwner: {
           type: mongoose.Schema.Types.ObjectId,
           ref: 'User'
