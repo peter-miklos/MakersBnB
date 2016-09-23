@@ -1,6 +1,7 @@
 <% layout('../layout') -%>
 <h1>Bookings</h1>
-
+<% if (receivedBookings) { %>
+<h3>Received bookings</h3>
 <table class="table table-bordered" id="main-table">
   <thead>
     <tr>
@@ -9,18 +10,71 @@
       <th>Booked from</th>
       <th>Booked to</th>
       <th>Total price</th>
-      <th>Confirmed</th>
+      <th>Confirm</th>
+      <th>Reject</th>
     </tr>
   </thead>
   <tbody>
-    <% bookings.forEach(function(booking, index) { %>
+    <% receivedBookings.forEach(function(receivedBooking, index) { %>
     <tr>
       <th scope="row"><%= index + 1 %></th>
-      <td><%= booking.listing %></td>
+      <td><%= receivedBooking.listingName %></td>
+      <td><%= receivedBooking.bookedFrom %></td>
+      <td><%= receivedBooking.bookedTo %></td>
+      <td><%= receivedBooking.totalPrice %></td>
+      <td>
+        <% if (receivedBooking.confirmed === false && receivedBooking.rejected === false) { %>
+        <form action="#">
+          <button name="confirm" class="btn btn-default" type="submit">Confirm</button>
+        </form>
+        <% } else { %>
+        Confirmed
+        <% } %>
+      </td>
+      <td>
+        <% if (receivedBooking.rejected === false && receivedBooking.confirmed === false) { %>
+        <form action="#">
+          <button name="reject" class="btn btn-default" type="submit">Reject</button>
+        </form>
+        <% } else { %>
+        Confirmed
+        <% } %>
+      </td>
+    </tr>
+    <% });%>
+  </tbody>
+</table>
+<% } %>
+
+<h3>My bookings</h3>
+<table class="table table-bordered" id="main-table">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Listing name</th>
+      <th>Booked from</th>
+      <th>Booked to</th>
+      <th>Total price</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% myBookings.forEach(function(booking, index) { %>
+    <tr>
+      <th scope="row"><%= index + 1 %></th>
+      <td><%= booking.listingName %></td>
       <td><%= booking.bookedFrom %></td>
       <td><%= booking.bookedTo %></td>
       <td><%= booking.totalPrice %></td>
-      <td><%= booking.confirmed %></td>
+      <td>
+        <% if (booking.confirmed) { %>
+          Confirmed
+        <% } else if (booking.confirmed === false && booking.rejected !== true) { %>
+          Not confirmed
+        <% } else if (booking.rejected === true) { %>
+          Rejected
+        <% } %>
+      </td>
     </tr>
     <% });%>
   </tbody>

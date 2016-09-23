@@ -4,8 +4,13 @@ var bookingSchema = mongoose.Schema({
   bookedFrom: Date,
   bookedTo: Date,
   confirmed: Boolean,
+  rejected: Boolean,
   totalPrice: Number,
-  lising: String,
+  listingName: String,
+  listingOwner: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'User'
+  },
   // listing: {
   //       type: mongoose.Schema.Types.ObjectId,
   //       ref: 'Listing'
@@ -13,7 +18,7 @@ var bookingSchema = mongoose.Schema({
   requester: {
           type: mongoose.Schema.Types.ObjectId,
           ref: 'User'
-    }
+  }
 });
 
 mongoose.model('Booking', bookingSchema);
