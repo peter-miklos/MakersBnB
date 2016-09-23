@@ -4,8 +4,7 @@
 <p>You've chosen the following item:</p>
 <%= listing.name %><br>
 <%= listing.description%><br>
-Available from: <%= listing.availableFrom %><br>
-Available to: <%= listing.availableTo %><br>
+Available on: <%= new Date(listing.available).toDateString() %><br><br>
 <div>
   <form action="/bookings/new" method="post">
     <!-- <label>Start date:
