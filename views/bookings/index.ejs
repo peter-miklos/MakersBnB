@@ -63,7 +63,7 @@
           <th>#</th>
           <th>Listing name</th>
           <th>Booking date</th>
-          <th>Price</th>
+          <th>Total price</th>
           <th>Status</th>
         </tr>
       </thead>
@@ -73,7 +73,7 @@
           <th scope="row"><%= index + 1 %></th>
           <td><%= booking.listingName %></td>
           <td><%= new Date(booking.bookingDate).toDateString() %></td>
-          <td>£ <%= booking.totalPrice %></td>
+          <td><%= booking.totalPrice %></td>
           <td>
             <% if (booking.confirmed) { %>
               Confirmed
