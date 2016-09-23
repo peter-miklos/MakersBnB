@@ -44,7 +44,7 @@ describe('User can search within a given date range', function() {
       before(function(done) {
       browser
         .fill('filter_date', '2017-02-01')
-        .pressButton('Search availability!', done);
+        .pressButton('Search availability', done);
       });
   });
     it('should be successful', function() {
@@ -52,7 +52,7 @@ describe('User can search within a given date range', function() {
     });
 
     it('shows the registered listing', function() {
-      browser.assert.text("body", /Our House/);
+      browser.assert.text("body", /Our Housee/);
     });
 
     it('should see welcome page', function() {
