@@ -26,12 +26,8 @@
 + Heroku
 + HTML
 + JavaScript, jQuery (probably)
-<<<<<<< HEAD
 + Zombie/Jasmine/Mocha for testing
-=======
-+ Mocha & Zombie for testing?
->>>>>>> e1d730d66356703fa467960b9817da07157bdb22
-+ Bootstrap (nice to have )
++ Bootstrap
 
 ## Project timelines:
 
